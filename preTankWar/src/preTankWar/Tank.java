@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 public class Tank {
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
+	public static final int WIDTH = 30;
+	public static final int HEIGHT = 30;
 	
 	private int x ,y;
 	//用枚举定义各个方向	
@@ -13,15 +15,22 @@ public class Tank {
 	
 	private boolean bL=false, bU=false, bR=false, bD = false;
 	
+	private TankClient tc= null;
+	
 	public Tank(int x, int y) {		
 		this.x = x;
 		this.y = y;
 	}
 	
+	public Tank(int x, int y, TankClient tc) {		
+		this(x , y);
+		this.tc = tc;
+	}
+	
 	public void draw(Graphics g) {
 		Color c = g.getColor();
 		g.setColor(Color.RED);
-		g.fillOval(x, y, 50, 50);	//画出一个圆
+		g.fillOval(x, y, WIDTH, HEIGHT);	//画出一个圆
 		g.setColor(c);
 		
 		move();
@@ -69,6 +78,10 @@ public class Tank {
 	public void whichKeyPressed(KeyEvent e) {
 		int key = e.getKeyCode();	//获得所按键的虚拟键码
 		switch(key) {
+		//按下空格时候，新建子弹
+		case KeyEvent.VK_SPACE:
+			tc.bullet = fire();
+			break;
 		case KeyEvent.VK_LEFT:
 			bL = true;
 			break;
@@ -86,6 +99,14 @@ public class Tank {
 		locateDirection();
 	}
 	
+	//发射子弹
+	private Bullet fire() {
+		int x = this.x + WIDTH/2 - Bullet.WIDTH/2;
+		int y = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
+		Bullet bullet = new Bullet(x , y, dir);
+		return bullet;
+	}
+
 	//确定哪个键被抬起
 	public void whichKeyReleased(KeyEvent e) {
 		int key = e.getKeyCode();	//获得所按键的虚拟键码
