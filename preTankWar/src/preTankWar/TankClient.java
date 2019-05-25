@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
-	int x = 30, y = 50;
+	Tank myTank = new Tank(30,50) ;
 	Image offScreenImage = null;
 		
 	public void launch() {
@@ -38,10 +38,7 @@ public class TankClient extends Frame{
 	//paint方法，窗口重画时候自动调用
 	@Override
 	public void paint(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.RED);
-		g.fillOval(x, y, 50, 50);	//画出一个圆
-		g.setColor(c);
+		myTank.draw(g);
 	}
 	
 	/*解决双缓冲,没必要深究，截获update,首先把画出来的东西（先画在内存的图片中，
@@ -73,7 +70,7 @@ public class TankClient extends Frame{
 				//调用repaint方法后先调用update在调用paint
 				repaint();
 				try {
-					Thread.sleep(50);
+					Thread.sleep(5);
 				} catch (InterruptedException e) {				
 					e.printStackTrace();
 				}
@@ -85,21 +82,7 @@ public class TankClient extends Frame{
 	private class KeyMonitor extends KeyAdapter{
 		@Override
 		public void keyPressed(KeyEvent e) {
-			int key = e.getKeyCode();	//获得所按键的虚拟键码
-			switch(key) {
-			case KeyEvent.VK_LEFT:
-				x -= 10;
-				break;
-			case KeyEvent.VK_UP:
-				y -= 10;
-				break;
-			case KeyEvent.VK_RIGHT:
-				x += 10;
-				break;
-			case KeyEvent.VK_DOWN:
-				y += 10;
-				break;
-			}
+			myTank.KeyPressed(e);
 		}
 		
 	}
