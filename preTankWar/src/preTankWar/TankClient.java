@@ -5,12 +5,14 @@ import java.awt.event.*;
 
 
 public class TankClient extends Frame{
+	public static final int GAME_WIDTH = 800;
+	public static final int GAME_HEIGHT = 600;
 	int x = 30, y = 50;
 	Image offScreenImage = null;
 		
 	public void launch() {
 		setLocation(300, 100);	//窗口位置
-		setSize(800, 600);	 //窗口大小
+		setSize(GAME_WIDTH, GAME_HEIGHT);	 //窗口大小
 		setVisible(true);	//设置可见
 		setResizable(false); 	//窗口大小可变否
 		setTitle("TankWar");	//窗口标题栏
@@ -45,12 +47,12 @@ public class TankClient extends Frame{
 	@Override
 	public void update(Graphics g) {
 		if(offScreenImage == null) {
-			offScreenImage = this.createImage(800, 600);
+			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
 		}
 		Graphics gOffScreen = offScreenImage.getGraphics();	//拿到图片的画笔
 		Color c = gOffScreen.getColor();
 		gOffScreen.setColor(Color.BLACK);
-		gOffScreen.fillRect(0, 0, 800, 600);
+		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		gOffScreen.setColor(c);
 		paint(gOffScreen);	
 		g.drawImage(offScreenImage, 0, 0, null);
