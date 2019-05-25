@@ -85,6 +85,27 @@ public class Tank {
 		
 		locateDirection();
 	}
+	
+	//确定哪个键被抬起
+	public void whichKeyReleased(KeyEvent e) {
+		int key = e.getKeyCode();	//获得所按键的虚拟键码
+		switch(key) {
+		case KeyEvent.VK_LEFT:
+			bL = false;
+			break;
+		case KeyEvent.VK_UP:
+			bU = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			bR = false;
+			break;
+		case KeyEvent.VK_DOWN:
+			bD = false;
+			break;
+		}
+		
+		locateDirection();		
+	}
 
 	//通过判断哪个键被按下，确定tank的方向
 	private void locateDirection() {		
@@ -98,5 +119,5 @@ public class Tank {
 		else if(bL && !bU && !bR && bD) dir = Direction.LD;
 		else if(!bL && !bU && !bR && !bD) dir = Direction.STOP;		
 	}
-	
+		
 }
