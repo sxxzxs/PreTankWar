@@ -8,6 +8,7 @@ public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	Tank myTank = new Tank(30,50) ;
+	Bullet bullet = new Bullet(30,50,Direction.R);
 	Image offScreenImage = null;
 		
 	public void launch() {
@@ -39,6 +40,7 @@ public class TankClient extends Frame{
 	@Override
 	public void paint(Graphics g) {
 		myTank.draw(g);
+		bullet.draw(g);
 	}
 	
 	/*解决双缓冲,没必要深究，截获update,首先把画出来的东西（先画在内存的图片中，

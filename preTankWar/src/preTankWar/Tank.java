@@ -6,9 +6,9 @@ import java.awt.event.KeyEvent;
 public class Tank {
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
+	
 	private int x ,y;
-	//用枚举定义各个方向
-	enum Direction{L, LU, U, RU, R, RD, D, LD, STOP};
+	//用枚举定义各个方向	
 	private Direction dir = Direction.D;	//初始化方向为向下
 	
 	private boolean bL=false, bU=false, bR=false, bD = false;
