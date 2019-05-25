@@ -70,7 +70,7 @@ public class TankClient extends Frame{
 				//调用repaint方法后先调用update在调用paint
 				repaint();
 				try {
-					Thread.sleep(5);
+					Thread.sleep(50);
 				} catch (InterruptedException e) {				
 					e.printStackTrace();
 				}
@@ -82,7 +82,7 @@ public class TankClient extends Frame{
 	private class KeyMonitor extends KeyAdapter{
 		@Override
 		public void keyPressed(KeyEvent e) {
-			myTank.KeyPressed(e);
+			myTank.whichKeyPressed(e);
 		}
 		
 	}
