@@ -139,7 +139,7 @@ public class Tank {
 	private void fire() {
 		int x = this.x + WIDTH/2 - Bullet.WIDTH/2;
 		int y = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-		Bullet bullet = new Bullet(x , y, ptDir);
+		Bullet bullet = new Bullet(x , y, ptDir, tc);
 		tc.bullets.add(bullet);
 		
 	}

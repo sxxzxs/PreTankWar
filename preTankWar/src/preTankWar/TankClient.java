@@ -40,6 +40,10 @@ public class TankClient extends Frame{
 	//paint方法，窗口重画时候自动调用
 	@Override
 	public void paint(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.yellow);
+		g.drawString("current bullets: " + bullets.size(), 10, 50);
+		g.setColor(c);
 		myTank.draw(g);
 		
 		for(int i = 0; i < bullets.size(); i++) {
