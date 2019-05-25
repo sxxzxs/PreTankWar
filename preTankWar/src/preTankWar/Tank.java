@@ -11,7 +11,11 @@ public class Tank {
 	
 	private int x ,y;
 	//用枚举定义各个方向	
+	//tank方向
 	private Direction dir = Direction.D;	//初始化方向为向下
+	
+	//炮筒方向
+	private Direction ptDir = Direction.D;
 	
 	private boolean bL=false, bU=false, bR=false, bD = false;
 	
@@ -31,8 +35,37 @@ public class Tank {
 		Color c = g.getColor();
 		g.setColor(Color.RED);
 		g.fillOval(x, y, WIDTH, HEIGHT);	//画出一个圆
-		g.setColor(c);
 		
+		g.setColor(Color.YELLOW);
+		//根据炮筒的方向，画出炮筒，是一根线
+		switch(ptDir) {
+		case L:
+			g.drawLine(x + Tank.WIDTH/2 , y + Tank.HEIGHT/2, x , y + Tank.HEIGHT/2);
+			break;
+		case LU:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y);
+			break;
+		case U:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y);
+			break;
+		case RU:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y);
+			break;
+		case R:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y + Tank.HEIGHT/2);
+			break;
+		case RD:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH, y + Tank.HEIGHT);
+			break;
+		case D:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y + Tank.HEIGHT);
+			break;
+		case LD:
+			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x, y + Tank.HEIGHT);
+			break;
+		}
+		
+		g.setColor(c);
 		move();
 	}
 	
@@ -70,7 +103,10 @@ public class Tank {
 		case STOP:
 			break;
 		}
-		
+		//若tank在动，炮筒指向动的方向
+		if(Direction.STOP != this.dir) {
+			this.ptDir = this.dir;
+		}
 		
 	}
 
@@ -103,7 +139,7 @@ public class Tank {
 	private Bullet fire() {
 		int x = this.x + WIDTH/2 - Bullet.WIDTH/2;
 		int y = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-		Bullet bullet = new Bullet(x , y, dir);
+		Bullet bullet = new Bullet(x , y, ptDir);
 		return bullet;
 	}
 
