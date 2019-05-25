@@ -116,7 +116,7 @@ public class Tank {
 		switch(key) {
 		//按下空格时候，新建子弹
 		case KeyEvent.VK_SPACE:
-			tc.bullet = fire();
+			fire();
 			break;
 		case KeyEvent.VK_LEFT:
 			bL = true;
@@ -135,12 +135,13 @@ public class Tank {
 		locateDirection();
 	}
 	
-	//发射子弹
-	private Bullet fire() {
+	//发射子弹,每按一下把一颗新建子弹填到线性表中
+	private void fire() {
 		int x = this.x + WIDTH/2 - Bullet.WIDTH/2;
 		int y = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
 		Bullet bullet = new Bullet(x , y, ptDir);
-		return bullet;
+		tc.bullets.add(bullet);
+		
 	}
 
 	//确定哪个键被抬起

@@ -2,13 +2,14 @@ package preTankWar;
 
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	Tank myTank = new Tank(30,50,this) ;
-	Bullet bullet = null;
+	List <Bullet> bullets  = new ArrayList<Bullet>();	//建立顺序表装子弹
 	Image offScreenImage = null;
 		
 	public void launch() {
@@ -41,8 +42,9 @@ public class TankClient extends Frame{
 	public void paint(Graphics g) {
 		myTank.draw(g);
 		
-		if(null != bullet) {
-		bullet.draw(g);
+		for(int i = 0; i < bullets.size(); i++) {
+			Bullet m = bullets.get(i);
+			m.draw(g);
 		}
 	}
 	
