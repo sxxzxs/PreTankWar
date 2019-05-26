@@ -35,7 +35,8 @@ public class Bullet {
 		}
 		
 		Color c = g.getColor();
-		g.setColor(Color.YELLOW);
+		if(good) g.setColor(Color.YELLOW);
+		else g.setColor(Color.BLUE);
 		g.fillOval(x, y, WIDTH, HEIGHT);
 		g.setColor(c);
 		
