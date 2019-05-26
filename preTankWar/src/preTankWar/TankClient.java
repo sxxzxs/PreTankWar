@@ -12,6 +12,7 @@ public class TankClient extends Frame{
 	Tank counterTank  = new Tank(50,80,false,this) ;
 	List <Bullet> bullets  = new ArrayList<Bullet>();	//建立顺序表装子弹
 	Image offScreenImage = null;
+	Explode explode = new Explode(70, 80, this);
 		
 	public void launch() {
 		setLocation(300, 100);	//窗口位置
@@ -47,6 +48,7 @@ public class TankClient extends Frame{
 		g.setColor(c);
 		myTank.draw(g);
 		counterTank.draw(g);
+		explode.draw(g);
 		
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet m = bullets.get(i);
