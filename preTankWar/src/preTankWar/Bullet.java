@@ -1,6 +1,7 @@
 package preTankWar;
 
 import java.awt.*;
+import java.util.List;
 
 public class Bullet {
 	
@@ -81,6 +82,7 @@ public class Bullet {
 		
 	}
 	
+	//打坦克
 	public boolean hitTank(Tank t) {
 		if(this.getRect().intersects(t.getRect()) && t.isLive()) {
 			t.setLive(false);
@@ -92,6 +94,17 @@ public class Bullet {
 		return false;
 	}
 	
+	//打多辆坦克
+	public boolean hitTanks(List<Tank> counterTanks) {
+		for(int i = 0; i < counterTanks.size(); i++) {
+			if(this.hitTank(counterTanks.get(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//得到一个以x,y为横纵坐标,WIDTH, HEIGHT为宽高大小的矩形
 	public Rectangle getRect() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}

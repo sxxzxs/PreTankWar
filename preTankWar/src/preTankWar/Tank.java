@@ -20,7 +20,7 @@ public class Tank {
 	
 	private boolean bL=false, bU=false, bR=false, bD = false;
 	
-	private boolean good;
+	private boolean good;	//定义坦克的好坏
 	
 	private TankClient tc= null;
 	
@@ -36,7 +36,12 @@ public class Tank {
 	}
 	
 	public void draw(Graphics g) {
-		if(!live) return;
+		if(!live) {
+			if(!good) {
+				tc.counterTanks.remove(this);
+			}
+			return;
+		}
 		Color c = g.getColor();
 		if(good) g.setColor(Color.RED);
 		else g.setColor(Color.BLUE);

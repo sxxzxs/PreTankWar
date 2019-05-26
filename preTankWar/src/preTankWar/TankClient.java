@@ -9,13 +9,16 @@ public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	Tank myTank = new Tank(30,50,true,this) ;
-	Tank counterTank  = new Tank(50,80,false,this) ;
-	List <Bullet> bullets  = new ArrayList<Bullet>();	//建立顺序表装子弹
 	Image offScreenImage = null;
-	//Explode explode = new Explode(70, 80, this);
-	List<Explode> explode  = new ArrayList<Explode>();
+	List <Bullet> bullets  = new ArrayList<Bullet>();	//建立顺序表装子弹	
+	List<Explode> explode  = new ArrayList<Explode>(); //建立顺序表装爆炸
+	List<Tank>counterTanks = new ArrayList<Tank>();
 		
 	public void launch() {
+		for(int i = 0; i < 10; i++) {
+			counterTanks.add(new Tank(50 + (i + 1) * 40, 50, false, this));
+		}
+				
 		setLocation(300, 100);	//窗口位置
 		setSize(GAME_WIDTH, GAME_HEIGHT);	 //窗口大小		
 		setResizable(false); 	//窗口大小可变否
@@ -37,7 +40,7 @@ public class TankClient extends Frame{
 		
 		//启动线程
 		new Thread(new PaintThread()).start();
-		
+			
 	}
 	
 	//paint方法，窗口重画时候自动调用
@@ -48,21 +51,27 @@ public class TankClient extends Frame{
 		
 		g.drawString("current bullets: " + bullets.size(), 10, 50);
 		g.drawString("current explodes: " + explode.size(), 10, 70);
+		g.drawString("current counterTanks: " + counterTanks.size(), 10, 90);
 		
 		g.setColor(c);
-		myTank.draw(g);
-		counterTank.draw(g);
-		//explode.draw(g);
+		myTank.draw(g);				
 		
+		//画出子弹
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet m = bullets.get(i);
-			m.hitTank(counterTank);
+			m.hitTanks(counterTanks);
 			m.draw(g);
 		}
 		
+		//画出爆炸
 		for(int i = 0; i < explode.size(); i++) {
 			Explode e = explode.get(i);
 			e.draw(g);
+		}
+		
+		for(int i = 0;i < counterTanks.size(); i++) {
+			Tank t = counterTanks.get(i);
+			t.draw(g);
 		}
 	}
 	
@@ -106,11 +115,13 @@ public class TankClient extends Frame{
 	//定义监听器类实现键盘控制
 	private class KeyMonitor extends KeyAdapter{	
 
+		//键按下去的时候
 		@Override
 		public void keyPressed(KeyEvent e) {
 			myTank.whichKeyPressed(e);
 		}
 		
+		//键抬起来的时候
 		@Override
 		public void keyReleased(KeyEvent e) {
 			myTank.whichKeyReleased(e);
