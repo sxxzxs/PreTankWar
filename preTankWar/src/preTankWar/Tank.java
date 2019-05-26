@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class Tank {
+	
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
 	public static final int WIDTH = 30;
@@ -51,8 +52,7 @@ public class Tank {
 		Color c = g.getColor();
 		if(good) g.setColor(Color.RED);
 		else g.setColor(Color.BLUE);
-		g.fillOval(x, y, WIDTH, HEIGHT);	//画出一个圆
-		
+		g.fillOval(x, y, WIDTH, HEIGHT);	//画出一个圆		
 		g.setColor(Color.YELLOW);
 		//根据炮筒的方向，画出炮筒，是一根线
 		switch(ptDir) {
@@ -142,6 +142,7 @@ public class Tank {
 				dir = dirs[rn];
 			}					
 			step--;
+			if(r.nextInt(40) > 36) fire();	//用随机数降低开火频率
 		}
 	}
 
@@ -172,9 +173,10 @@ public class Tank {
 	
 	//发射子弹,每按一下把一颗新建子弹填到线性表中
 	private void fire() {
+		if(!live) return;
 		int x = this.x + WIDTH/2 - Bullet.WIDTH/2;
 		int y = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-		Bullet bullet = new Bullet(x , y, ptDir, tc);
+		Bullet bullet = new Bullet(x , y, good,ptDir, tc);
 		tc.bullets.add(bullet);
 		
 	}
@@ -223,6 +225,10 @@ public class Tank {
 
 	public void setLive(boolean live) {
 		this.live = live;
+	}
+	
+	public boolean isGood() {
+		return good;
 	}
 		
 }

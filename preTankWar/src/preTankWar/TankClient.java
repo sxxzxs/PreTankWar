@@ -60,6 +60,7 @@ public class TankClient extends Frame{
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet m = bullets.get(i);
 			m.hitTanks(counterTanks);
+			m.hitTank(myTank);
 			m.draw(g);
 		}
 		
@@ -69,6 +70,7 @@ public class TankClient extends Frame{
 			e.draw(g);
 		}
 		
+		//画出敌方坦克
 		for(int i = 0;i < counterTanks.size(); i++) {
 			Tank t = counterTanks.get(i);
 			t.draw(g);
