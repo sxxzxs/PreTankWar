@@ -16,7 +16,10 @@ public class Explode {
 	}
 	
 	public void draw(Graphics g) {
-		if(!live) return;		
+		if(!live) {
+			tc.explode.remove(this);
+			return;		
+		}
 		if(step == size.length) {
 			live = false;
 			step = 0;

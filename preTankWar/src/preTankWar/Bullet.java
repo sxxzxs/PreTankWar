@@ -85,6 +85,8 @@ public class Bullet {
 		if(this.getRect().intersects(t.getRect()) && t.isLive()) {
 			t.setLive(false);
 			this.live = false;
+			Explode e = new Explode(x, y , tc);
+			tc.explode.add(e);
 			return true;
 		}
 		return false;
