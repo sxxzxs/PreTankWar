@@ -103,10 +103,16 @@ public class Tank {
 		case STOP:
 			break;
 		}
+		
 		//若tank在动，炮筒指向动的方向
 		if(Direction.STOP != this.dir) {
 			this.ptDir = this.dir;
 		}
+		
+		if(x < 0) x = 0;
+		if(y < 30) y = 30;
+		if(x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH;
+		if(y + Tank.HEIGHT  > TankClient.GAME_HEIGHT)  y = TankClient.GAME_HEIGHT - Tank.HEIGHT;
 		
 	}
 
