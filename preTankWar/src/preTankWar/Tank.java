@@ -2,6 +2,7 @@ package preTankWar;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class Tank {
 	public static final int XSPEED = 5;
@@ -24,14 +25,19 @@ public class Tank {
 	
 	private TankClient tc= null;
 	
+	Random r = new Random(); //定义随机数
+	
+	private int step = r.nextInt(12) + 3;	//记录坦克移动步数
+	
 	public Tank(int x, int y, boolean good) {		
 		this.x = x;
 		this.y = y;
 		this.good = good;
 	}
 	
-	public Tank(int x, int y, boolean good,TankClient tc) {		
+	public Tank(int x, int y, boolean good,Direction dir,TankClient tc) {		
 		this(x , y, good);
+		this.dir = dir;
 		this.tc = tc;
 	}
 	
@@ -120,11 +126,23 @@ public class Tank {
 			this.ptDir = this.dir;
 		}
 		
+		//解决坦克出界问题
 		if(x < 0) x = 0;
 		if(y < 30) y = 30;
 		if(x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH;
 		if(y + Tank.HEIGHT  > TankClient.GAME_HEIGHT)  y = TankClient.GAME_HEIGHT - Tank.HEIGHT;
 		
+		//如果是坏坦克，让它们随机动起来
+		if(!good) {
+			Direction[] dirs = Direction.values();	//把Direction里的内容转化为数组
+			//每移动一定步数才改变坦克的方向
+			if(step == 0) {
+				step = r.nextInt(12) + 3;
+				int rn  = r.nextInt(dirs.length);	//产生随机数
+				dir = dirs[rn];
+			}					
+			step--;
+		}
 	}
 
 	//确定哪个键被按下

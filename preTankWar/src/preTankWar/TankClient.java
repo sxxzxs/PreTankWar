@@ -8,7 +8,7 @@ import java.util.List;
 public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
-	Tank myTank = new Tank(30,50,true,this) ;
+	Tank myTank = new Tank(30,50,true,Direction.STOP,this) ;
 	Image offScreenImage = null;
 	List <Bullet> bullets  = new ArrayList<Bullet>();	//建立顺序表装子弹	
 	List<Explode> explode  = new ArrayList<Explode>(); //建立顺序表装爆炸
@@ -16,7 +16,7 @@ public class TankClient extends Frame{
 		
 	public void launch() {
 		for(int i = 0; i < 10; i++) {
-			counterTanks.add(new Tank(50 + (i + 1) * 40, 50, false, this));
+			counterTanks.add(new Tank(50 + (i + 1) * 40, 50, false, Direction.D,this));
 		}
 				
 		setLocation(300, 100);	//窗口位置
