@@ -8,7 +8,8 @@ import java.util.List;
 public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
-	Tank myTank = new Tank(30,50,this) ;
+	Tank myTank = new Tank(30,50,true,this) ;
+	Tank counterTank  = new Tank(50,80,false,this) ;
 	List <Bullet> bullets  = new ArrayList<Bullet>();	//建立顺序表装子弹
 	Image offScreenImage = null;
 		
@@ -45,6 +46,7 @@ public class TankClient extends Frame{
 		g.drawString("current bullets: " + bullets.size(), 10, 50);
 		g.setColor(c);
 		myTank.draw(g);
+		counterTank.draw(g);
 		
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet m = bullets.get(i);

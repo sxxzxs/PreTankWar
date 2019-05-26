@@ -12,28 +12,32 @@ public class Tank {
 	private int x ,y;
 	//用枚举定义各个方向	
 	//tank方向
-	private Direction dir = Direction.D;	//初始化方向为向下
+	private Direction dir = Direction.STOP;	//初始化方向为向下
 	
 	//炮筒方向
 	private Direction ptDir = Direction.D;
 	
 	private boolean bL=false, bU=false, bR=false, bD = false;
 	
+	private boolean good;
+	
 	private TankClient tc= null;
 	
-	public Tank(int x, int y) {		
+	public Tank(int x, int y, boolean good) {		
 		this.x = x;
 		this.y = y;
+		this.good = good;
 	}
 	
-	public Tank(int x, int y, TankClient tc) {		
-		this(x , y);
+	public Tank(int x, int y, boolean good,TankClient tc) {		
+		this(x , y, good);
 		this.tc = tc;
 	}
 	
 	public void draw(Graphics g) {
 		Color c = g.getColor();
-		g.setColor(Color.RED);
+		if(good) g.setColor(Color.RED);
+		else g.setColor(Color.BLUE);
 		g.fillOval(x, y, WIDTH, HEIGHT);	//画出一个圆
 		
 		g.setColor(Color.YELLOW);
