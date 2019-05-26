@@ -50,6 +50,7 @@ public class TankClient extends Frame{
 		
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet m = bullets.get(i);
+			m.hitTank(counterTank);
 			m.draw(g);
 		}
 	}

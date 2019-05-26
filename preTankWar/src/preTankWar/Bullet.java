@@ -26,6 +26,11 @@ public class Bullet {
 	}
 	
 	public void draw(Graphics g) {
+		if(!live) {
+			tc.bullets.remove(this);
+			return;
+		}
+		
 		Color c = g.getColor();
 		g.setColor(Color.YELLOW);
 		g.fillOval(x, y, WIDTH, HEIGHT);
@@ -71,10 +76,22 @@ public class Bullet {
 		}
 		
 		if(x < 0 || y < 0 || x > tc.GAME_WIDTH || y > tc.GAME_HEIGHT) {
-			live = false;
-			tc.bullets.remove(this);
+			live = false;			
 		}
 		
+	}
+	
+	public boolean hitTank(Tank t) {
+		if(this.getRect().intersects(t.getRect()) && t.isLive()) {
+			t.setLive(false);
+			this.live = false;
+			return true;
+		}
+		return false;
+	}
+	
+	public Rectangle getRect() {
+		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
 
 }

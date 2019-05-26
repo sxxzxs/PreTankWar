@@ -13,6 +13,7 @@ public class Tank {
 	//用枚举定义各个方向	
 	//tank方向
 	private Direction dir = Direction.STOP;	//初始化方向为向下
+	private boolean live = true;
 	
 	//炮筒方向
 	private Direction ptDir = Direction.D;
@@ -35,6 +36,7 @@ public class Tank {
 	}
 	
 	public void draw(Graphics g) {
+		if(!live) return;
 		Color c = g.getColor();
 		if(good) g.setColor(Color.RED);
 		else g.setColor(Color.BLUE);
@@ -186,6 +188,18 @@ public class Tank {
 		else if(!bL && !bU && !bR && bD) dir = Direction.D;
 		else if(bL && !bU && !bR && bD) dir = Direction.LD;
 		else if(!bL && !bU && !bR && !bD) dir = Direction.STOP;		
+	}
+	
+	public Rectangle getRect() {
+		return new Rectangle(x, y, WIDTH, HEIGHT);
+	}
+	
+	public boolean isLive() {
+		return live;
+	}
+
+	public void setLive(boolean live) {
+		this.live = live;
 	}
 		
 }
