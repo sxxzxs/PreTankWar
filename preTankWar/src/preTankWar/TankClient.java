@@ -53,6 +53,7 @@ public class TankClient extends Frame{
 		g.drawString("current bullets: " + bullets.size(), 10, 50);
 		g.drawString("current explodes: " + explode.size(), 10, 70);
 		g.drawString("current counterTanks: " + counterTanks.size(), 10, 90);
+		g.drawString("current blood: " + myTank.getBlood(), 10, 110);
 		
 		g.setColor(c);
 		myTank.draw(g);	

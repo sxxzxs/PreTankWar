@@ -88,7 +88,16 @@ public class Bullet {
 	//打坦克
 	public boolean hitTank(Tank t) {
 		if(this.live && this.getRect().intersects(t.getRect()) && t.isLive() && this.good != t.isGood()) {
-			t.setLive(false);
+			//如果是好的每次打中掉20滴血，如果是坏蛋直接死
+			if(t.isGood()) {
+				t.setBlood(t.getBlood() - 20);
+				if(t.getBlood() <= 0) {
+					t.setLive(false);
+				}
+			}else {
+				t.setLive(false);
+			}
+			
 			this.live = false;
 			Explode e = new Explode(x, y , tc);
 			tc.explode.add(e);

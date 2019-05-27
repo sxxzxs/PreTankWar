@@ -5,8 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 import java.util.Collection;
 import java.util.List;
-public class Tank {
-	
+public class Tank {	
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
 	public static final int WIDTH = 30;
@@ -20,6 +19,7 @@ public class Tank {
 	//tank方向
 	private Direction dir = Direction.STOP;	//初始化方向为向下
 	private boolean live = true;
+	private int blood = 100;
 	
 	//炮筒方向
 	private Direction ptDir = Direction.D;
@@ -292,6 +292,14 @@ public class Tank {
 	
 	public boolean isGood() {
 		return good;
+	}
+	
+	public int getBlood() {
+		return blood;
+	}
+
+	public void setBlood(int blood) {
+		this.blood = blood;
 	}
 		
 }
