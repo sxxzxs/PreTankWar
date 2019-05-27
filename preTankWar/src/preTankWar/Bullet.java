@@ -115,6 +115,7 @@ public class Bullet {
 		}
 		return false;
 	}
+	
 	//当子弹碰到墙的时候
 	public boolean hitWall(Wall w) {
 		if(this.live && this.getRect().intersects(w.getRect())) {

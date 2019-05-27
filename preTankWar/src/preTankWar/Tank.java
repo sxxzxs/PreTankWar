@@ -67,6 +67,7 @@ public class Tank {
 		
 		if(good) bb.draw(g);
 		
+		g.setColor(Color.WHITE);
 		//根据炮筒的方向，画出炮筒，是一根线
 		switch(ptDir) {
 		case L:
@@ -175,6 +176,14 @@ public class Tank {
 		case KeyEvent.VK_A:
 			superFire();
 			break;
+		//按F2复活	
+		case KeyEvent.VK_F2:
+			if(!this.live) {
+				this.live = true;
+				this.blood  = 100;
+			}
+			break;
+			
 		case KeyEvent.VK_LEFT:
 			bL = true;
 			break;
@@ -287,6 +296,16 @@ public class Tank {
 		y = oldY;
 	}
 	
+	//吃血块
+	public boolean eat(BloodBlock b) {
+		if(this.live && b.isLive() && this.getRect().intersects(b.getRect())) {
+			this.blood = 100;
+			b.setLive(false);	//吃掉时候血块消失
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean isLive() {
 		return live;
 	}
@@ -307,6 +326,7 @@ public class Tank {
 		this.blood = blood;
 	}
 	
+	//血条
 	class BloodBar{
 		public void draw(Graphics g) {
 			Color c =g.getColor();

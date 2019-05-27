@@ -14,6 +14,7 @@ public class TankClient extends Frame{
 	List<Explode> explode  = new ArrayList<Explode>(); //建立顺序表装爆炸
 	List<Tank>counterTanks = new ArrayList<Tank>();
 	Wall w1 = new Wall(100,200,20,150,this), w2 = new Wall(300, 100, 300, 20, this);
+	BloodBlock bb = new BloodBlock(500, 800);
 		
 	public void launch() {
 		for(int i = 0; i < 10; i++) {
@@ -46,7 +47,7 @@ public class TankClient extends Frame{
 	
 	//paint方法，窗口重画时候自动调用
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g) {				
 		Color c = g.getColor();
 		g.setColor(Color.yellow);
 		
@@ -57,8 +58,10 @@ public class TankClient extends Frame{
 		
 		g.setColor(c);
 		myTank.draw(g);	
+		myTank.eat(bb);	//吃血
 		w1.draw(g);
 		w2.draw(g);
+		bb.draw(g);
 		
 		//画出子弹
 		for(int i = 0; i < bullets.size(); i++) {
@@ -83,6 +86,13 @@ public class TankClient extends Frame{
 			t.collidesWall(w2);
 			t.collidesTanks(counterTanks);
 			t.draw(g);
+		}
+		
+		//坦克死完后重刷坦克
+		if(counterTanks.size() <= 0) {
+			for(int i=0; i<5; i++) {
+				counterTanks.add(new Tank(50 + (i + 1) * 40, 500, false, Direction.D,this));
+			}
 		}
 	}
 	
