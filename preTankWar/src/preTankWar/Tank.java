@@ -12,6 +12,9 @@ public class Tank {
 	public static final int HEIGHT = 30;
 	
 	private int x ,y;
+	
+	private int oldX, oldY;
+	
 	//用枚举定义各个方向	
 	//tank方向
 	private Direction dir = Direction.STOP;	//初始化方向为向下
@@ -33,6 +36,8 @@ public class Tank {
 	public Tank(int x, int y, boolean good) {		
 		this.x = x;
 		this.y = y;
+		this.oldX = x;
+		this.oldY = y;
 		this.good = good;
 	}
 	
@@ -88,6 +93,10 @@ public class Tank {
 	
 	//根据方向作出相应的移动
 	private void move() {
+		//记录上一步坦克的位置
+		this.oldX = x;
+		this.oldY = y;
+		
 		switch(dir) {
 		case L:
 			x -= XSPEED;
@@ -217,6 +226,19 @@ public class Tank {
 	
 	public Rectangle getRect() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
+	}
+	
+	public boolean collidesWall(Wall w) {
+		if(this.getRect().intersects(w.getRect())) {
+			this.stay();
+			return true;
+		}
+		return false;
+	}
+	
+	public void stay() {
+		x = oldX;
+		y = oldY;
 	}
 	
 	public boolean isLive() {

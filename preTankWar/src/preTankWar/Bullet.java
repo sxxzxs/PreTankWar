@@ -107,6 +107,14 @@ public class Bullet {
 		return false;
 	}
 	
+	public boolean hitWall(Wall w) {
+		if(this.live && this.getRect().intersects(w.getRect())) {
+			this.live = false;
+			return true;
+		}
+		return false;
+	}
+	
 	//得到一个以x,y为横纵坐标,WIDTH, HEIGHT为宽高大小的矩形
 	public Rectangle getRect() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);

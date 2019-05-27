@@ -13,10 +13,11 @@ public class TankClient extends Frame{
 	List <Bullet> bullets  = new ArrayList<Bullet>();	//建立顺序表装子弹	
 	List<Explode> explode  = new ArrayList<Explode>(); //建立顺序表装爆炸
 	List<Tank>counterTanks = new ArrayList<Tank>();
+	Wall w1 = new Wall(100,200,20,150,this), w2 = new Wall(300, 100, 300, 20, this);
 		
 	public void launch() {
 		for(int i = 0; i < 10; i++) {
-			counterTanks.add(new Tank(50 + (i + 1) * 40, 50, false, Direction.D,this));
+			counterTanks.add(new Tank(50 + (i + 1) * 40, 500, false, Direction.D,this));
 		}
 				
 		setLocation(300, 100);	//窗口位置
@@ -54,13 +55,17 @@ public class TankClient extends Frame{
 		g.drawString("current counterTanks: " + counterTanks.size(), 10, 90);
 		
 		g.setColor(c);
-		myTank.draw(g);				
+		myTank.draw(g);	
+		w1.draw(g);
+		w2.draw(g);
 		
 		//画出子弹
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet m = bullets.get(i);
 			m.hitTanks(counterTanks);
 			m.hitTank(myTank);
+			m.hitWall(w1);
+			m.hitWall(w2);
 			m.draw(g);
 		}
 		
@@ -73,6 +78,8 @@ public class TankClient extends Frame{
 		//画出敌方坦克
 		for(int i = 0;i < counterTanks.size(); i++) {
 			Tank t = counterTanks.get(i);
+			t.collidesWall(w1);
+			t.collidesWall(w2);
 			t.draw(g);
 		}
 	}
