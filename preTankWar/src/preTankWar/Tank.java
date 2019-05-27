@@ -3,6 +3,7 @@ package preTankWar;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import java.util.Collection;
 import java.util.List;
 public class Tank {
 	
@@ -165,6 +166,10 @@ public class Tank {
 		case KeyEvent.VK_SPACE:
 			fire();
 			break;
+		//按下A键后，超级开火
+		case KeyEvent.VK_A:
+			superFire();
+			break;
 		case KeyEvent.VK_LEFT:
 			bL = true;
 			break;
@@ -187,9 +192,26 @@ public class Tank {
 		if(!live) return;
 		int x = this.x + WIDTH/2 - Bullet.WIDTH/2;
 		int y = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-		Bullet bullet = new Bullet(x , y, good,ptDir, tc);
+		Bullet bullet = new Bullet(x , y, good, ptDir, tc);
 		tc.bullets.add(bullet);
 		
+	}
+	
+	//根据指定方向建子弹，超级开火时候用
+	private void fire(Direction dir) {
+		if(!live) return;
+		int x = this.x + WIDTH/2 - Bullet.WIDTH/2;
+		int y = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
+		Bullet bullet = new Bullet(x , y, good, dir, tc);
+		tc.bullets.add(bullet);		
+	}
+	
+	//向八个方向开火
+	public void superFire() {
+		Direction[] dirs  = Direction.values();
+		for(int i = 0; i < 8; i++) {
+			fire(dirs[i]);
+		}
 	}
 
 	//确定哪个键被抬起
