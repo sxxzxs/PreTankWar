@@ -1,7 +1,9 @@
 package preTankWar;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Bullet {
 	
@@ -15,6 +17,35 @@ public class Bullet {
 	private boolean live = true;
 	private TankClient tc;
 	private boolean good;
+	
+	//把图片加入imgs数组中
+		private static Toolkit tk = Toolkit.getDefaultToolkit();
+		public static Image[] bulletImages = null;
+		private static Map<String, Image> imgs = new HashMap<String, Image>();
+		static {
+			bulletImages = new Image[] {
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletL.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/missileLU.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletU.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/missileRU.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletR.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/missileRD.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/bulletD.gif")),
+				tk.getImage(Bullet.class.getClassLoader().getResource("images/missileLD.gif"))
+			};
+			
+			imgs.put("L", bulletImages[0]);
+			imgs.put("LU", bulletImages[1]);
+			imgs.put("U", bulletImages[2]);
+			imgs.put("RU", bulletImages[3]);
+			imgs.put("R", bulletImages[4]);
+			imgs.put("RD", bulletImages[5]);
+			imgs.put("D", bulletImages[6]);
+			imgs.put("LD", bulletImages[7]);
+		}
+				
+		
+		
 	
 	Bullet(int x,int y, Direction dir){
 		this.x = x;
@@ -34,11 +65,32 @@ public class Bullet {
 			return;
 		}
 		
-		Color c = g.getColor();
-		if(good) g.setColor(Color.YELLOW);
-		else g.setColor(Color.BLUE);
-		g.fillOval(x, y, WIDTH, HEIGHT);
-		g.setColor(c);
+		switch(dir) {
+		case L:
+			g.drawImage(imgs.get("L"), x, y, null);
+			break;
+		case LU:
+			g.drawImage(imgs.get("LU"), x, y, null);
+			break;
+		case U:
+			g.drawImage(imgs.get("U"), x, y, null);
+			break;
+		case RU:
+			g.drawImage(imgs.get("RU"), x, y, null);
+			break;
+		case R:
+			g.drawImage(imgs.get("R"), x, y, null);
+			break;
+		case RD:
+			g.drawImage(imgs.get("RD"), x, y, null);
+			break;
+		case D:
+			g.drawImage(imgs.get("D"), x, y, null);
+			break;
+		case LD:
+			g.drawImage(imgs.get("LD"), x, y, null);
+			break;
+		}
 		
 		move();
 	}	
