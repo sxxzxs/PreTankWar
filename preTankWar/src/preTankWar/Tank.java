@@ -15,6 +15,8 @@ public class Tank {
 	
 	private int oldX, oldY;
 	
+	private BloodBar bb = new BloodBar();
+	
 	//用枚举定义各个方向	
 	//tank方向
 	private Direction dir = Direction.STOP;	//初始化方向为向下
@@ -62,6 +64,9 @@ public class Tank {
 		else g.setColor(Color.BLUE);
 		g.fillOval(x, y, WIDTH, HEIGHT);	//画出一个圆		
 		g.setColor(Color.YELLOW);
+		
+		if(good) bb.draw(g);
+		
 		//根据炮筒的方向，画出炮筒，是一根线
 		switch(ptDir) {
 		case L:
@@ -300,6 +305,17 @@ public class Tank {
 
 	public void setBlood(int blood) {
 		this.blood = blood;
+	}
+	
+	class BloodBar{
+		public void draw(Graphics g) {
+			Color c =g.getColor();
+			g.setColor(Color.GRAY);
+			g.drawRect(x, y - 10, WIDTH, 7);
+			int w = WIDTH * blood/100;
+			g.fillRect(x, y - 10, w, 7);
+			g.setColor(c);
+		}
 	}
 		
 }
