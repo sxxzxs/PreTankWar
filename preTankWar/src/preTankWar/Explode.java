@@ -4,10 +4,29 @@ import java.awt.*;
 
 public class Explode {
 	private int x , y;
-	private boolean live = true;
-	int[] size = {5,15,25,35,45,55,45,35,25,15,5};	//定义所画出圈的大小
+	private boolean live = true;			
 	int step = 0;	//爆炸到第几步了
 	private TankClient tc;
+	//把图片加入imgs数组中
+	private static Toolkit tk = Toolkit.getDefaultToolkit();
+	public static Image[] imgs = {
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e1.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e2.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e3.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e4.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e5.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e6.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e7.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e8.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e9.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e10.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e11.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e12.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e13.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e14.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e15.gif")),
+			tk.getImage(Explode.class.getClassLoader().getResource("images/e16.gif"))
+	};
 	
 	public Explode(int x,int y,TankClient tc) {
 		this.x = x;
@@ -21,16 +40,15 @@ public class Explode {
 			return;		
 		}
 		
-		if(step == size.length) {
+		if(step == imgs.length) {
 			live = false;
 			step = 0;
 			return;
-		}		
-		Color c = g.getColor();
-		g.setColor(Color.YELLOW);
-		g.fillOval(x, y, size[step], size[step]);
+		}	
+		//画出爆炸图片
+		g.drawImage(imgs[step], x, y, null);
 		step++;
-		g.setColor(c);		
+				
 	}
 
 }
