@@ -3,7 +3,7 @@ package preTankWar;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-
+import java.util.List;
 public class Tank {
 	
 	public static final int XSPEED = 5;
@@ -32,6 +32,8 @@ public class Tank {
 	Random r = new Random(); //定义随机数
 	
 	private int step = r.nextInt(12) + 3;	//记录坦克移动步数
+	
+	private List<Tank>tanks;
 	
 	public Tank(int x, int y, boolean good) {		
 		this.x = x;
@@ -228,14 +230,31 @@ public class Tank {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
 	
+	//当坦克碰到墙的时候
 	public boolean collidesWall(Wall w) {
-		if(this.getRect().intersects(w.getRect())) {
+		if(this.live && this.getRect().intersects(w.getRect())) {
 			this.stay();
 			return true;
 		}
 		return false;
 	}
 	
+	//敌方坦克之间碰到的时候
+	public boolean collidesTanks(List<Tank>tanks) {
+		for(int i = 0; i < tanks.size(); i++) {
+			Tank t = tanks.get(i);
+			if(this != t) {
+				if(this.live && t.isLive() && this.getRect().intersects(t.getRect())) {
+					this.stay();
+					t.stay();
+					return true;
+				}
+			}			
+		}
+		return false;
+	}
+	
+	//回到上一步位置
 	public void stay() {
 		x = oldX;
 		y = oldY;

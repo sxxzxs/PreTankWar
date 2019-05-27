@@ -80,6 +80,7 @@ public class TankClient extends Frame{
 			Tank t = counterTanks.get(i);
 			t.collidesWall(w1);
 			t.collidesWall(w2);
+			t.collidesTanks(counterTanks);
 			t.draw(g);
 		}
 	}
