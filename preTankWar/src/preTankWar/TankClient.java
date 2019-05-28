@@ -2,8 +2,10 @@ package preTankWar;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class TankClient extends Frame{
 	public static final int GAME_WIDTH = 800;
@@ -17,7 +19,15 @@ public class TankClient extends Frame{
 	BloodBlock bb = new BloodBlock(500, 800);
 		
 	public void launch() {
-		for(int i = 0; i < 10; i++) {
+		//用配置文件来定义初始化坦克数量
+		Properties props = new Properties();
+		try {
+			props.load(this.getClass().getClassLoader().getResourceAsStream("config/tank.properties"));
+		} catch (IOException e1) {			
+			e1.printStackTrace();
+		}
+		int initTankCount = Integer.parseInt(props.getProperty("initTankCount"));
+		for(int i = 0; i < initTankCount; i++) {
 			counterTanks.add(new Tank(50 + (i + 1) * 40, 500, false, Direction.D,this));
 		}
 				

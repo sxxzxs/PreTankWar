@@ -5,7 +5,7 @@ import java.awt.*;
 public class Wall {
 	private int x , y, w, h;
 	private TankClient tc;
-	
+		
 	Wall(int x, int y ,int w, int h,TankClient tc) {
 		this.x = x;
 		this.y = y;

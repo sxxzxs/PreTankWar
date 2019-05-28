@@ -7,6 +7,7 @@ public class Explode {
 	private boolean live = true;			
 	int step = 0;	//爆炸到第几步了
 	private TankClient tc;
+	
 	//把图片加入imgs数组中
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	public static Image[] imgs = {
