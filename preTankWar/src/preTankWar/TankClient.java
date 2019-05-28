@@ -19,14 +19,8 @@ public class TankClient extends Frame{
 	BloodBlock bb = new BloodBlock(500, 800);
 		
 	public void launch() {
-		//用配置文件来定义初始化坦克数量
-		Properties props = new Properties();
-		try {
-			props.load(this.getClass().getClassLoader().getResourceAsStream("config/tank.properties"));
-		} catch (IOException e1) {			
-			e1.printStackTrace();
-		}
-		int initTankCount = Integer.parseInt(props.getProperty("initTankCount"));
+		
+		int initTankCount = Integer.parseInt(PropertiesMgr.getProperty("initTankCount"));
 		for(int i = 0; i < initTankCount; i++) {
 			counterTanks.add(new Tank(50 + (i + 1) * 40, 500, false, Direction.D,this));
 		}
@@ -100,7 +94,7 @@ public class TankClient extends Frame{
 		
 		//坦克死完后重刷坦克
 		if(counterTanks.size() <= 0) {
-			for(int i=0; i<5; i++) {
+			for(int i=0; i<Integer.parseInt(PropertiesMgr.getProperty("reProduceCounterTanks")); i++) {
 				counterTanks.add(new Tank(50 + (i + 1) * 40, 500, false, Direction.D,this));
 			}
 		}
